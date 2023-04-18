@@ -1,0 +1,304 @@
+/* ------------ X --- X --- X -------------- START OF THE PORTFOLIO STYLYING PAGE ------------- X --- X --- X -----------  */
+
+/* ---------------------------------------- Main Body Elements / Selectors Styling --------------------------------------- */
+/* Body Tag  */
+body {
+    margin: 0;
+    text-align: center;
+    font-family: 'Merriweather', serif;
+    color: black;
+}
+
+/* Common Stylying are grouped together  */
+h2,h3,h4,a {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+}
+
+/* Heading Tags  */
+h1 {
+    margin-top: 0;
+    font-family: 'Sacramento', cursive;
+    font-size: 5.625rem; /*1em = 16px = 100% rem == Const em Value*/
+    margin: 50px auto 0 auto;
+    color: #FD841F;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 2rem;
+    color: #FD841F;
+    padding: 10px;
+}
+
+h3 {
+    color: #FF1E1E;
+    margin: 0 auto 0 auto;
+    padding: 10px;
+    font-size: 1.6rem;
+}
+
+h4 {
+    color: blueviolet;
+    padding: 10px;
+    font-size: 1.2rem;
+}
+
+/* Anchor Tag  */
+a {
+    color: blue;
+    margin-left: 5px;
+    margin-right: 20px;
+}
+
+/* Horizontal Row Tag  */
+hr {
+    border: dotted black 6px;
+    border-bottom: none;
+    width: 4%;
+    margin: 50px auto;
+}
+
+
+
+
+/* --------------------------------------------- Classes styling Section ----------------------------------------- */
+
+/* ---------------------------------------------- Natigation Bar Styling ------------------------------------------ */
+.navbar {
+    padding: 0 0 5px;
+    margin: 0;
+    background-color: #B1B2FF;
+}
+
+.navbar-brand {
+    font-family: 'Merriweather', serif;
+    margin-right: 450px;
+    margin-left: 5px;
+    font-weight: bold;
+}
+
+.nav-item {
+    font-family: 'Merriweather', serif;
+    padding: 0 10px;
+    font-weight: bold;
+}
+
+/* Hover Property for NavBar Brand */
+.navbar-brand:hover {
+    color: #FD841F;
+}
+
+/* ------------------------------------------- Top, Middle & Bottom container --------------------------------------- */
+.Top-container {
+    background-color: #B1B2FF;
+    position: relative;
+    padding-top: 325px;
+}
+
+.Middle-container {
+    background-color: #AAC4FF;
+    padding-top: 100px;
+    padding-bottom: 25px;
+}
+
+/* ------------- ------------------ For all the Sub-Pages Seperate Stylying done -------------------------------------  */
+.Top-container-about {
+    background-color: #B1B2FF;
+    position: relative;
+    padding-top: 200px;
+}
+
+.Top-container-contact {
+    background-color: #B1B2FF;
+    position: relative;
+    padding-top: 200px;
+}
+
+.Top-container-education {
+    background-color: #B1B2FF;
+    position: relative;
+    padding-top: 90px;
+}
+
+.Top-container-internships {
+    background-color: #B1B2FF;
+    position: relative;
+    padding-top: 100px;
+}
+
+.Top-container-projects {
+    background-color: #B1B2FF;
+    position: relative;
+    padding-top: 100px;
+}
+
+.Top-container-skills {
+    background-color: #B1B2FF;
+    position: relative;
+    padding-top: 100px;
+}
+
+/* ---------------------------------------- Top, Bottom, Left & Right clouds ---------------------------------------- */
+.Top-cloud {
+    position: absolute;
+    right: 500px;
+    top: 200px;
+}
+
+.Bottom-cloud {
+    position: absolute;
+    left: 500px;
+    bottom: 300px;
+}
+
+.Left-cloud { /* Right Cloud On Website*/
+    position: absolute;
+    right: 200px;
+    top: 550px;
+}
+
+.Right-cloud { /* Left Cloud On Website*/
+    position: absolute;
+    left: 200px;
+    bottom: 600px;
+}
+
+/* ----------------------------------------------- Title & Sub Title -------------------------------------------------- */
+.Title {
+    padding:0;
+    margin:0;
+    padding-bottom: 50px;
+}
+
+.subTitle {
+    color: purple;
+    font-weight: bold;
+}
+
+/* -------------------------------------------------- Profile Image ------------------------------------------------- */
+/* For " About Me " Sub-Page  */
+.profile-image { 
+    width: 22%;
+    padding-bottom: 25px;
+}
+
+.profile-img {
+    padding-bottom: 20px;
+}
+
+/* -------------------------------------------- Carousel Images & Buttons ------------------------------------------- */
+.carousel-image {
+    padding: 10px;
+}
+
+.carousel-control-prev {
+    text-decoration: solid;
+}
+
+.carousel-control-next {
+    text-decoration: solid;
+}
+
+/* ----------------------------------------------------- Icons ------------------------------------------------------ */
+.icons-king {
+    color: #FF1E1E;
+    padding-left: 5px;
+    margin: 0;
+}
+
+.icons-king:hover {
+    color: #FD841F;
+}
+
+.icons {
+    color: #FF1E1E;
+}
+
+/* Icon Hover Color, using Suedo Classes As shown Below  */
+.icons:hover {
+    color:#FD841F;
+}
+
+.Email-Logo {
+    margin-right: 5px;
+}
+
+/* --------------------------------------------- Footer & Footer Link's --------------------------------------------- */
+.footers {
+    background-color: aliceblue;
+    padding: 0;
+    margin: 0;
+}
+
+/* ------------------------------------------------- Contact Me Button ----------------------------------------------- */
+.Contact-Me-Button {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+/* ---------------------------------- "Contact Me" Button Generator and Styling done here ------------------------------ */
+.button {
+  background: #3498db;
+  background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+  background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+  background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+  background-image: -o-linear-gradient(top, #3498db, #2980b9);
+  background-image: linear-gradient(to bottom, #3498db, #2980b9);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  font-family: 'Montserrat', sans-serif;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+}
+
+/* --------------------------------------- Button Hover Code & Styling here ------------------------------------------- */
+.button:hover {
+  background: #3cb0fd;
+  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+  text-decoration: none;
+}
+
+
+
+
+/* ------------------------------------------------- Sections Stylying -------------------------------------------------  */
+
+#About {
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+#Skills {
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+#Internships {
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+#Projects {
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+#Education {
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+#Contact {
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+/* ------------ X --- X --- X -------------- END OF THE PORTFOLIO STYLYING PAGE ------------- X --- X --- X -----------  */
