@@ -8,6 +8,20 @@
 ![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
 ![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
 ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
-![image](https://github.com/YJ-928/Yash_B_Joshi-Portfolio/assets/68319416/7f9abc44-e596-4742-a2e2-d532773f309c)
 
+### Netlify Link: https://yashbjoshi-portfolio.netlify.app/
 ### Replit Link: https://replit.com/@YJ-928/YashBJoshi-Portfolio
+
+#### Home:
+![image](https://github.com/YJ-928/Yash_B_Joshi-Portfolio/assets/68319416/7f9abc44-e596-4742-a2e2-d532773f309c)
+#### About Me:
+![image](https://github.com/YJ-928/Yash_B_Joshi-Portfolio/assets/68319416/9027633b-134e-4560-b283-3643a77cc929)
+#### Education:
+![image](https://github.com/YJ-928/Yash_B_Joshi-Portfolio/assets/68319416/02888152-b702-4bd7-beca-5bc0716388ab)
+#### Internship:
+![image](https://github.com/YJ-928/Yash_B_Joshi-Portfolio/assets/68319416/b93b08ce-ccc2-44a2-a576-8fdf73f04d1c)
+#### Project:
+![image](https://github.com/YJ-928/Yash_B_Joshi-Portfolio/assets/68319416/25fa21a2-8afb-4489-a71b-a55afa13161b)
+#### Skills:
+![image](https://github.com/YJ-928/Yash_B_Joshi-Portfolio/assets/68319416/5352a4db-db3b-4e22-9698-e47194dcf0cd)
+
