@@ -1,0 +1,65 @@
+---
+import { site } from "../data/site.js";
+---
+<header class="nav">
+  <div class="wrap nav-in">
+    <a href="#top" class="brand" aria-label={site.name}>
+      <span class="dot"></span>
+      <span class="full">{site.name}</span>
+      <span class="short" aria-hidden="true">YJ</span>
+    </a>
+    <nav aria-label="Sections">
+      <a href="#focus">Focus</a>
+      <a href="#open-source">Open source</a>
+      <a href="#work">Work</a>
+      <a href="#contact" class="cta">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(14px);
+    background: color-mix(in oklab, var(--bg) 78%, transparent);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .nav-in { display: flex; align-items: center; justify-content: space-between; height: 62px; }
+  .brand {
+    display: inline-flex; align-items: center; gap: .6rem;
+    font-weight: 620; font-size: .95rem; text-decoration: none; letter-spacing: -.01em;
+  }
+  .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent-2);
+    box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent-2) 18%, transparent);
+  }
+  nav { display: flex; align-items: center; gap: 4px; }
+  nav a {
+    font-size: .875rem; color: var(--text-dim); text-decoration: none;
+    padding: 7px 12px; border-radius: 999px; transition: color .2s ease, background .2s ease;
+  }
+  nav a:hover { color: var(--text); background: rgba(255,255,255,.05); }
+  nav a.cta { color: var(--text); border: 1px solid var(--line); }
+  nav a.cta:hover { border-color: color-mix(in oklab, var(--accent) 50%, var(--line)); }
+  /* Phones kept the Contact button only, which left no way to reach a
+     section. The row scrolls horizontally instead of disappearing. */
+  @media (max-width: 700px) {
+    .nav-in { gap: 12px; height: 56px; }
+    .brand { font-size: .88rem; }
+    nav {
+      overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none;
+      -webkit-overflow-scrolling: touch;
+      margin-right: -4px;
+    }
+    nav::-webkit-scrollbar { display: none; }
+    nav a { font-size: .8rem; padding: 6px 10px; white-space: nowrap; }
+  }
+  /* narrow phones: shorten the brand rather than drop the section links —
+     the links are the only way to move around the page here */
+  .short { display: none; }
+  @media (max-width: 460px) {
+    .full { display: none; }
+    .short { display: inline; }
+  }
+</style>

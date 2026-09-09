@@ -1,0 +1,110 @@
+---
+// Tech marquee: two lanes drifting in opposite directions, paused on hover so
+// the thing you want to click stops moving. Every entry links out.
+import Icon from "./Icon.astro";
+import { stack } from "../data/site.js";
+
+const items = Object.values(stack).flat();
+const rows = [items.filter((_, i) => i % 2 === 0), items.filter((_, i) => i % 2 === 1)];
+---
+
+<div class="marquee" aria-label="Technologies I work with">
+  {rows.map((row, r) => (
+    <div class="lane">
+      <div class="track" style={`--dur:${r ? 52 : 44}s`} data-rev={r === 1 ? "" : undefined}>
+        {[0, 1].map((copy) =>
+          row.map((i) => (
+            <a
+              class="tech"
+              href={i.url}
+              target="_blank"
+              rel="noopener"
+              aria-hidden={copy ? "true" : undefined}
+              tabindex={copy ? -1 : undefined}
+            >
+              <Icon slug={i.icon} tint={i.tint} size={19} />
+              <span class="nm">{i.name}</span>
+              <span class="go" aria-hidden="true">↗</span>
+            </a>
+          ))
+        )}
+      </div>
+    </div>
+  ))}
+</div>
+
+<style>
+  .marquee {
+    display: flex; flex-direction: column; gap: 12px;
+    padding: 6px 0;
+    /* fade both ends so items enter and leave instead of popping */
+    mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  }
+  .lane { overflow: hidden; }
+
+  .track {
+    display: flex; gap: 12px; width: max-content;
+    animation: slide var(--dur) linear infinite;
+  }
+  .track[data-rev] { animation-direction: reverse; }
+  @keyframes slide { to { transform: translateX(-50%); } }
+
+  /* hover or keyboard focus anywhere in the marquee freezes both lanes */
+  .marquee:hover .track,
+  .marquee:focus-within .track,
+  .marquee:active .track { animation-play-state: paused; }
+
+  .tech {
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 9px 16px 9px 13px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: linear-gradient(180deg, var(--surface), var(--bg-soft));
+    color: var(--text-mid);
+    font-size: .875rem; text-decoration: none; white-space: nowrap;
+    transition: color .2s ease, border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+  }
+  .tech:hover {
+    color: var(--text);
+    border-color: color-mix(in oklab, var(--accent) 52%, var(--line));
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px -16px var(--accent-glow);
+  }
+  .tech:hover :global(.ic) { opacity: 1; transform: scale(1.14); }
+
+  .go {
+    font-size: .7rem; color: var(--accent-2);
+    opacity: 0; width: 0; transition: opacity .2s ease, width .2s ease;
+  }
+  .tech:hover .go { opacity: 1; width: .7rem; }
+
+  /* touch: smaller targets are hard to hit while moving, so slow the drift */
+  /* Once the rail is on screen the lanes must clear it: chips fade to nothing
+     before the rail's column rather than sliding underneath its nodes. */
+  @media (min-width: 1280px) {
+    .marquee {
+      mask-image: linear-gradient(90deg,
+        transparent 0,
+        transparent calc(var(--rail-x) + 88px),
+        #000 calc(var(--rail-x) + 196px),
+        #000 94%, transparent 100%);
+      -webkit-mask-image: linear-gradient(90deg,
+        transparent 0,
+        transparent calc(var(--rail-x) + 88px),
+        #000 calc(var(--rail-x) + 196px),
+        #000 94%, transparent 100%);
+    }
+  }
+
+  @media (hover: none) {
+    .track { animation-duration: calc(var(--dur) * 1.5); }
+    .tech { padding: 8px 14px 8px 11px; font-size: .82rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .track { animation: none; }
+    .lane { overflow-x: auto; scrollbar-width: none; }
+    .lane::-webkit-scrollbar { display: none; }
+  }
+</style>

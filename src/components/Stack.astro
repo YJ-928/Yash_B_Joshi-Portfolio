@@ -1,0 +1,39 @@
+---
+import Marquee from "./Marquee.astro";
+import { now } from "../data/site.js";
+---
+<section id="stack" class="section">
+  <div class="wrap two">
+    <div>
+      <p class="eyebrow" data-reveal>Toolkit</p>
+      <h2 data-reveal>What I build with</h2>
+      <p class="lede" data-reveal style="margin-top:.85rem">
+        Everything below links out to the project itself. Hover to stop the drift —
+        the same marks show up on the work cards, because they're the same tools.
+      </p>
+    </div>
+
+    <aside data-reveal>
+      <div class="card now-card" data-spot>
+        <p class="eyebrow" style="margin-bottom:.75rem">Currently</p>
+        <ul>{now.map((n) => <li>{n}</li>)}</ul>
+      </div>
+    </aside>
+  </div>
+
+  <!-- full-bleed: the lanes should run edge to edge, not stop at the column -->
+  <div class="bleed" data-reveal>
+    <Marquee />
+  </div>
+</section>
+
+<style>
+  .two { display: grid; gap: 36px; align-items: start; }
+  @media (min-width: 900px) { .two { grid-template-columns: 1.05fr 1fr; gap: 52px; } }
+
+  .bleed { margin-top: 2.8rem; }
+
+  .now-card ul { margin: 0; padding-left: 1rem; display: flex; flex-direction: column; gap: .75rem; }
+  .now-card li { color: var(--text-mid); font-size: .92rem; line-height: 1.6; }
+  .now-card li::marker { color: var(--accent); }
+</style>

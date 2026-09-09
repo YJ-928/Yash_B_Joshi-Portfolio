@@ -1,28 +1,61 @@
-# Yash B Joshi Portfolio
-![Portfolio](https://img.shields.io/badge/Portfolio-Yash%20B%20Joshi-important?style=flat)
-![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=flat&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=flat&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=flat&logo=javascript&logoColor=%23F7DF1E)
-![Netlify](https://img.shields.io/badge/netlify-%23000000.svg?style=flat&logo=netlify&logoColor=#00C7B7)
-![Replit](https://img.shields.io/badge/Replit-DD1200?style=flat&logo=Replit&logoColor=white)
-![Windows 11](https://img.shields.io/badge/Windows%2011-%230079d5.svg?style=flat&logo=Windows%2011&logoColor=white)
+# Yash B Joshi — Portfolio
+
+![Astro](https://img.shields.io/badge/Astro-BC52EE?style=flat&logo=astro&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-323330?style=flat&logo=javascript&logoColor=F7DF1E)
+![Netlify](https://img.shields.io/badge/Netlify-000000?style=flat&logo=netlify&logoColor=00C7B7)
 ![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat&logo=linux&logoColor=black)
-![Android](https://img.shields.io/badge/Android-3DDC84?style=flat&logo=android&logoColor=white)
-![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=flat&logo=github&logoColor=white)
 
-### Netlify Link: https://yashbjoshi-portfolio.netlify.app/
-### Replit Link: https://replit.com/@YJ-928/YashBJoshi-Portfolio
+Personal site — backend engineering, workflow orchestration and distributed systems.
 
-#### Home:
-![image](https://github.com/YJ-928/Yash_B_Joshi-Portfolio/assets/68319416/7f9abc44-e596-4742-a2e2-d532773f309c)
-#### About Me:
-![image](https://github.com/YJ-928/Yash_B_Joshi-Portfolio/assets/68319416/9027633b-134e-4560-b283-3643a77cc929)
-#### Education:
-![image](https://github.com/YJ-928/Yash_B_Joshi-Portfolio/assets/68319416/02888152-b702-4bd7-beca-5bc0716388ab)
-#### Internship:
-![image](https://github.com/YJ-928/Yash_B_Joshi-Portfolio/assets/68319416/b93b08ce-ccc2-44a2-a576-8fdf73f04d1c)
-#### Project:
-![image](https://github.com/YJ-928/Yash_B_Joshi-Portfolio/assets/68319416/25fa21a2-8afb-4489-a71b-a55afa13161b)
-#### Skills:
-![image](https://github.com/YJ-928/Yash_B_Joshi-Portfolio/assets/68319416/5352a4db-db3b-4e22-9698-e47194dcf0cd)
+**Live:** https://yashbjoshi-portfolio.netlify.app
 
+---
+
+## Build
+
+Static, built with [Astro](https://astro.build). **Zero JavaScript bundles** — the
+handful of interactions (scroll reveal, cursor spotlight, the progress rail) are a
+few dozen inline lines, so nothing is fetched before the page paints.
+
+Everything third-party is compiled in rather than loaded at runtime: brand icons come
+from `simple-icons` at build time, and images are optimised by Astro's own pipeline.
+The one external request is the web font.
+
+| | |
+|---|---|
+| Framework | Astro |
+| Styling | Plain CSS with custom properties — no framework |
+| Icons | `simple-icons`, inlined as SVG at build time |
+| Hosting | Netlify, deployed from `main` |
+
+## Structure
+
+```
+src/
+  data/site.js        all copy and content — edit this, not the markup
+  components/         Nav, Hero, Focus, OpenSource, Work, Stack, Contact,
+                      Marquee, Rail, Icon, Glyph, Chip
+  layouts/Base.astro  document shell, inline scripts, loader
+  styles/global.css   design tokens and shared primitives
+```
+
+Content lives in one file on purpose. The previous version of this site went stale
+because changing anything meant editing dozens of hand-written markup blocks.
+
+## Running it
+
+```bash
+npm install
+npm run dev      # http://localhost:4321
+npm run build    # → dist/
+npm run preview
+```
+
+## Notes
+
+- Every animation is gated behind `prefers-reduced-motion`, and the cursor spotlight
+  is skipped on touch devices.
+- The loader is skipped entirely on a deep link (`/#work`) — someone who asked for a
+  section should land on it.
+- Layout is verified from 360px through 4K.

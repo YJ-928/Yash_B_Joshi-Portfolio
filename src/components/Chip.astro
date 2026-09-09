@@ -1,0 +1,16 @@
+---
+// A tag that carries the toolkit's own icon when one exists, so the mark in the
+// marquee and the mark on a work card are the same mark.
+import Icon from "./Icon.astro";
+import { iconFor } from "../data/site.js";
+const { label } = Astro.props;
+const { icon, tint } = iconFor(label);
+---
+<li class="chip">
+  {icon && <Icon slug={icon} tint={tint} size={13} />}
+  <span>{label}</span>
+</li>
+
+<style>
+  .chip { display: inline-flex; align-items: center; gap: 6px; }
+</style>

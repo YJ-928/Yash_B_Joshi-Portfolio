@@ -1,0 +1,29 @@
+---
+// Renders a simple-icons glyph inline. No CDN — the last portfolio broke
+// because it leaned on third-party hosts, and github-readme-stats going
+// DEPLOYMENT_PAUSED made the same point again. Icons are compiled in.
+import * as si from "simple-icons";
+const { slug, tint, size = 14 } = Astro.props;
+const key = slug ? "si" + slug.charAt(0).toUpperCase() + slug.slice(1) : null;
+const icon = key && si[key] ? si[key] : null;
+const colour = tint ?? (icon ? `#${icon.hex}` : null);
+---
+{icon ? (
+  <svg
+    class="ic" viewBox="0 0 24 24" width={size} height={size}
+    fill={colour} aria-hidden="true" focusable="false"
+  >
+    <path d={icon.path} />
+  </svg>
+) : (
+  <span class="ic dot" aria-hidden="true"></span>
+)}
+
+<style>
+  .ic { flex-shrink: 0; opacity: .82; transition: opacity .2s ease, transform .2s ease; }
+  .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--text-dim);
+    display: inline-block;
+  }
+</style>

@@ -1,0 +1,50 @@
+---
+import Chip from "./Chip.astro";
+import Glyph from "./Glyph.astro";
+import { focus } from "../data/site.js";
+---
+<section id="focus" class="section">
+  <div class="wrap">
+    <p class="eyebrow" data-reveal>What I work on</p>
+    <h2 data-reveal>The problems I reach for</h2>
+    <p class="lede" data-reveal style="margin-top:.85rem">
+      Backend work where the failure modes are interesting — state that has to survive,
+      schedules that have to be right, and systems that have to explain themselves.
+    </p>
+
+    <div class="grid cols-2" style="margin-top:2.6rem">
+      {focus.map((f) => (
+        <article class="card f" data-reveal data-spot>
+          <span class="mark"><Glyph name={f.glyph} /></span>
+          <span class="n mono">{f.n}</span>
+          <h3>{f.title}</h3>
+          <p>{f.body}</p>
+          <ul class="chips">{f.tags.map((t) => <Chip label={t} />)}</ul>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .f { padding-top: 26px; }
+  .mark {
+    display: inline-grid; place-items: center;
+    width: 40px; height: 40px; margin-bottom: 1rem;
+    border: 1px solid var(--line);
+    border-radius: 11px;
+    background: linear-gradient(180deg, var(--surface-2), var(--bg-soft));
+    transition: border-color .25s ease, box-shadow .25s ease;
+  }
+  .f:hover .mark {
+    border-color: color-mix(in oklab, var(--accent) 46%, var(--line));
+    box-shadow: 0 8px 22px -14px var(--accent-glow);
+  }
+  .f:hover .mark :global(.glyph) { color: var(--text); transform: scale(1.06); }
+  .n {
+    position: absolute; top: 20px; right: 20px;
+    font-size: .74rem; color: var(--text-dim); letter-spacing: .1em;
+  }
+  .f h3 { margin-bottom: .6rem; padding-right: 2.5rem; }
+  .f p { font-size: .945rem; margin-bottom: 1rem; max-width: 60ch; }
+</style>

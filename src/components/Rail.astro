@@ -1,0 +1,90 @@
+---
+// The page as a workflow run. Nodes complete as you scroll, the edge between
+// them fills like a token moving through a graph, and the node you are on is
+// "running". It is the site's own subject used as its navigation.
+const nodes = [
+  { id: "top",         label: "Start" },
+  { id: "focus",       label: "Focus" },
+  { id: "open-source", label: "Open source" },
+  { id: "work",        label: "Work" },
+  { id: "stack",       label: "Toolkit" },
+  { id: "contact",     label: "End" },
+];
+---
+<nav class="rail" data-rail-root aria-label="Page progress">
+  <span class="edge" aria-hidden="true"><i></i></span>
+  <ol>
+    {nodes.map((n) => (
+      <li data-rail={n.id}>
+        <a href={`#${n.id}`}>
+          <span class="node" aria-hidden="true"></span>
+          <span class="lbl">{n.label}</span>
+        </a>
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<style>
+  .rail {
+    --p: 0;
+    position: fixed; top: 50%; transform: translateY(-50%);
+    /* tracks the content column: on a 4K screen a rail pinned to the window
+       edge is a thousand pixels from anything it refers to */
+    left: var(--rail-x);
+    z-index: 40;
+  }
+  /* no room for it until the layout is genuinely wide */
+  @media (max-width: 1279px) { .rail { display: none; } }
+
+  ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 30px; }
+
+  /* the edge: a static track with a fill scaled by scroll progress */
+  .edge {
+    position: absolute; left: 5px; top: 6px; bottom: 6px; width: 1px;
+    background: var(--line);
+  }
+  .edge i {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, var(--accent-2), var(--accent));
+    transform: scaleY(var(--p)); transform-origin: top;
+  }
+
+  a { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+
+  .node {
+    width: 11px; height: 11px; border-radius: 50%;
+    border: 1.5px solid var(--line);
+    background: var(--bg);
+    flex-shrink: 0;
+    transition: border-color .3s ease, background .3s ease, transform .3s ease;
+  }
+  li.done .node { border-color: var(--accent-2); background: var(--accent-2); }
+  li.now  .node {
+    border-color: var(--accent); background: var(--accent);
+    transform: scale(1.25);
+    animation: running 2s ease-out infinite;
+  }
+  @keyframes running {
+    0%   { box-shadow: 0 0 0 0 var(--accent-glow); }
+    70%  { box-shadow: 0 0 0 9px transparent; }
+    100% { box-shadow: 0 0 0 0 transparent; }
+  }
+
+  .lbl {
+    font-family: var(--mono); font-size: .68rem; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--text-dim);
+    opacity: 0; transform: translateX(-5px);
+    transition: opacity .25s ease, transform .25s ease, color .25s ease;
+    white-space: nowrap;
+  }
+  /* labels appear for the active node, and for all of them while hovering */
+  li.now .lbl { opacity: 1; transform: none; color: var(--text-mid); }
+  .rail:hover .lbl { opacity: 1; transform: none; }
+  a:hover .lbl { color: var(--text); }
+  a:hover .node { border-color: var(--accent); }
+
+  @media (prefers-reduced-motion: reduce) {
+    li.now .node { animation: none; }
+  }
+</style>

@@ -1,0 +1,36 @@
+---
+import { site } from "../data/site.js";
+const year = new Date().getFullYear();
+---
+<section id="contact" class="section contact">
+  <div class="wrap">
+    <p class="eyebrow" data-reveal>Get in touch</p>
+    <h2 data-reveal>Happy to talk backend</h2>
+    <p class="lede" data-reveal style="margin-top:.85rem">
+      Open to conversations about distributed systems, workflow orchestration, developer
+      tooling, and open-source work.
+    </p>
+    <div class="actions" data-reveal>
+      <a class="btn btn-primary" href={site.links.linkedin} target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="btn btn-ghost" href={site.links.github} target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="btn btn-ghost" href={site.links.twitter} target="_blank" rel="noopener">Twitter ↗</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <span>© {year} {site.name}</span>
+    <span class="mono">Built with Astro · deployed on Netlify</span>
+  </div>
+</footer>
+
+<style>
+  .contact { padding-bottom: clamp(56px, 8vw, 96px); }
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 2rem; }
+  footer { border-top: 1px solid var(--line-soft); padding: 26px 0 40px; }
+  .foot {
+    display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+    font-size: .8rem; color: var(--text-dim);
+  }
+</style>

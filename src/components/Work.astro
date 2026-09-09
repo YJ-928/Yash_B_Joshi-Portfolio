@@ -1,0 +1,48 @@
+---
+import Chip from "./Chip.astro";
+import { work } from "../data/site.js";
+---
+<section id="work" class="section">
+  <div class="wrap">
+    <p class="eyebrow" data-reveal>Selected work</p>
+    <h2 data-reveal>Systems I've built and the calls I made</h2>
+    <p class="lede" data-reveal style="margin-top:.85rem">
+      Described by the problem and the decision rather than the client — the interesting
+      part was never the logo.
+    </p>
+
+    <div class="list">
+      {work.map((w, i) => (
+        <article class="item" data-reveal>
+          <div class="idx mono">{String(i + 1).padStart(2, "0")}</div>
+          <div class="content">
+            <p class="kind mono">{w.kind}</p>
+            <h3>{w.title}</h3>
+            <p class="body">{w.body}</p>
+            <ul class="chips">{w.tags.map((t) => <Chip label={t} />)}</ul>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .list { margin-top: 2.6rem; display: flex; flex-direction: column; }
+  .item {
+    display: grid; grid-template-columns: 64px 1fr; gap: 8px;
+    padding: 30px 0; border-top: 1px solid var(--line-soft);
+  }
+  .item:last-child { border-bottom: 1px solid var(--line-soft); }
+  .idx { color: var(--text-dim); font-size: .8rem; padding-top: .35rem; letter-spacing: .08em; }
+  .kind {
+    font-size: .72rem; letter-spacing: .13em; text-transform: uppercase;
+    color: var(--accent-2); margin: 0 0 .55rem;
+  }
+  .content h3 { font-size: 1.22rem; margin-bottom: .75rem; letter-spacing: -.015em; }
+  .body { font-size: .96rem; max-width: 68ch; margin-bottom: 1.1rem; }
+  @media (max-width: 640px) {
+    .item { grid-template-columns: 1fr; gap: 0; }
+    .idx { display: none; }
+  }
+</style>

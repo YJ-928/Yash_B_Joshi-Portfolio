@@ -1,0 +1,89 @@
+---
+import { site } from "../data/site.js";
+---
+<section id="top" class="hero">
+  <div class="wrap hero-in">
+    <div class="text enter">
+      <p class="eyebrow">{site.location}</p>
+      <h1>
+        {site.name}
+        <span class="grad grad-anim">{site.role}</span>
+      </h1>
+      <p class="tagline mono">{site.tagline}</p>
+      <p class="lede intro">{site.intro}</p>
+
+      <div class="actions">
+        <a class="btn btn-primary" href="#work">See the work</a>
+        <a class="btn btn-ghost" href={site.links.github} target="_blank" rel="noopener">GitHub ↗</a>
+        <a class="btn btn-ghost" href={site.links.linkedin} target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+    </div>
+
+    <div class="portrait portrait-in">
+      <img
+        src="/img/yash.jpg"
+        alt={`${site.name}, ${site.role}`}
+        width="400" height="400"
+        fetchpriority="high" decoding="async"
+      />
+      <span class="ring" aria-hidden="true"></span>
+    </div>
+  </div>
+
+  <a href="#focus" class="cue" aria-label="Scroll to content">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+      <path d="M12 5v14M6 13l6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  </a>
+</section>
+
+<style>
+  .hero { padding: clamp(56px, 11vw, 128px) 0 clamp(48px, 7vw, 84px); }
+  .hero-in { display: grid; gap: 44px; align-items: center; }
+  @media (min-width: 880px) {
+    .hero-in { grid-template-columns: 1fr auto; gap: 64px; }
+  }
+
+  h1 {
+    font-size: clamp(2.3rem, 6.6vw, 4.1rem);
+    font-weight: 700; letter-spacing: -.035em; margin: 0 0 1rem;
+    display: flex; flex-direction: column; gap: .08em;
+  }
+  .grad {
+    background: linear-gradient(105deg, var(--accent) 0%, #6f8cff 45%, var(--accent-2) 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .tagline { color: var(--text-dim); font-size: .8rem; letter-spacing: .04em; margin: 0 0 1.5rem; }
+  .intro { font-size: clamp(1rem, 2.1vw, 1.14rem); }
+  .text { min-width: 0; }
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 2rem; }
+
+  /* portrait */
+  .portrait { position: relative; justify-self: start; width: clamp(140px, 24vw, 264px); aspect-ratio: 1; }
+  .portrait img {
+    width: 100%; height: 100%; object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    filter: saturate(1.03) contrast(1.02);
+    position: relative; z-index: 1;
+  }
+  /* soft accent halo, purely decorative */
+  .portrait::before {
+    content: ""; position: absolute; inset: -14%;
+    border-radius: 50%; z-index: 0;
+    background: conic-gradient(from 210deg, var(--accent), var(--accent-2), var(--accent));
+    filter: blur(26px); opacity: .3;
+  }
+  .ring {
+    position: absolute; inset: -9px; border-radius: 50%; z-index: 2;
+    border: 1px solid color-mix(in oklab, var(--accent) 30%, transparent);
+    pointer-events: none;
+  }
+  @media (min-width: 880px) { .portrait { justify-self: end; } }
+
+  .cue {
+    display: flex; justify-content: center; margin-top: clamp(28px, 5vw, 52px);
+    color: var(--text-dim); text-decoration: none;
+  }
+  .cue:hover { color: var(--accent-2); }
+</style>

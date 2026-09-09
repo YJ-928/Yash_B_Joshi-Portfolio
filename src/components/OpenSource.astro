@@ -1,0 +1,73 @@
+---
+import { Image } from "astro:assets";
+import Chip from "./Chip.astro";
+import zigflowLogo from "../assets/zigflow-logo.png";
+import { openSource } from "../data/site.js";
+---
+<section id="open-source" class="section os-wrap">
+  <div class="wrap">
+    <p class="eyebrow" data-reveal>Open source</p>
+    <h2 data-reveal>Fixing the tools I depend on</h2>
+
+    {openSource.map((o) => (
+      <article class="card os" data-reveal data-spot>
+        <div class="head">
+          <a class="ident" href={o.repoUrl} target="_blank" rel="noopener">
+            <!-- Zigflow's own mark, used to identify the project I contributed to -->
+            <Image class="logo" src={zigflowLogo} alt="" width={44} height={36} loading="lazy" />
+            <span>
+              <span class="repo">{o.repo} ↗</span>
+              <span class="about">{o.about}</span>
+            </span>
+          </a>
+          <span class="status">✓ {o.status}</span>
+        </div>
+
+        <a class="pr mono" href={o.prUrl} target="_blank" rel="noopener">
+          {o.pr} — {o.title}
+        </a>
+        <p class="body">{o.body}</p>
+        <ul class="chips" style="margin-bottom:1.1rem">{o.tags.map((t) => <Chip label={t} />)}</ul>
+        <p class="note">{o.note}</p>
+      </article>
+    ))}
+  </div>
+</section>
+
+<style>
+  .os-wrap { position: relative; }
+  .os-wrap::before {
+    content: ""; position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(180deg, transparent, rgba(124,92,255,.05) 45%, transparent);
+  }
+  .os { margin-top: 2.4rem; padding: 28px; }
+  .head { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap; }
+
+  .ident { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+  .logo {
+    width: 44px; height: auto; flex-shrink: 0;
+    border-radius: 8px;
+    transition: transform .25s ease;
+  }
+  .ident:hover .logo { transform: scale(1.06) rotate(-2deg); }
+  .repo { display: block; font-weight: 620; font-size: 1.02rem; }
+  .ident:hover .repo { color: var(--accent-2); }
+  .about { display: block; color: var(--text-dim); font-size: .875rem; }
+
+  .status {
+    flex-shrink: 0;
+    font-size: .76rem; font-weight: 600; letter-spacing: .04em;
+    color: #7ee7c7;
+    border: 1px solid color-mix(in oklab, #21d4c4 34%, transparent);
+    background: color-mix(in oklab, #21d4c4 11%, transparent);
+    padding: 4px 12px; border-radius: 999px;
+  }
+  .pr {
+    display: block; margin: 1.4rem 0 .9rem;
+    font-size: .84rem; color: var(--accent-2); text-decoration: none;
+    word-break: break-word;
+  }
+  .pr:hover { text-decoration: underline; }
+  .body { font-size: .95rem; margin-bottom: .9rem; }
+  .note { font-size: .875rem; color: var(--text-dim); margin: 0; padding-top: .9rem; border-top: 1px solid var(--line-soft); }
+</style>
