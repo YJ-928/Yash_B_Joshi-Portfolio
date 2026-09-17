@@ -20,14 +20,18 @@ import { openSource } from "../data/site.js";
               <span class="about">{o.about}</span>
             </span>
           </a>
-          <span class="status">✓ {o.status}</span>
+          <span class="status">✓ {o.prs.filter((p) => p.status === "Merged").length} merged</span>
         </div>
 
-        <a class="pr mono" href={o.prUrl} target="_blank" rel="noopener">
-          {o.pr} — {o.title}
-        </a>
-        <p class="body">{o.body}</p>
-        <ul class="chips" style="margin-bottom:1.1rem">{o.tags.map((t) => <Chip label={t} />)}</ul>
+        {o.prs.map((p) => (
+          <div class="pr-item">
+            <a class="pr mono" href={p.prUrl} target="_blank" rel="noopener">
+              {p.pr} — {p.title}
+            </a>
+            <p class="body">{p.body}</p>
+            <ul class="chips" style="margin-bottom:1.1rem">{p.tags.map((t) => <Chip label={t} />)}</ul>
+          </div>
+        ))}
         <p class="note">{o.note}</p>
       </article>
     ))}
@@ -69,5 +73,6 @@ import { openSource } from "../data/site.js";
   }
   .pr:hover { text-decoration: underline; }
   .body { font-size: .95rem; margin-bottom: .9rem; }
+  .pr-item + .pr-item { border-top: 1px solid var(--line-soft); }
   .note { font-size: .875rem; color: var(--text-dim); margin: 0; padding-top: .9rem; border-top: 1px solid var(--line-soft); }
 </style>

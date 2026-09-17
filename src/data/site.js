@@ -95,13 +95,26 @@ export const openSource = [
     repo: "zigflow/zigflow",
     repoUrl: "https://github.com/zigflow/zigflow",
     about: "Durable workflows in YAML, powered by Temporal",
-    pr: "#568",
-    prUrl: "https://github.com/zigflow/zigflow/pull/568",
-    title: "fix(utils): honour io.Writer contract in LogWriter.Write",
-    body:
-      "An intermittent “short write” that killed script execution. A blank chunk returned n=0 with a nil error, and io.MultiWriter correctly treated that as a short write — so one stray newline aborted the whole command. Root-caused from a production symptom, reproduced with a regression test, fixed in one line.",
-    status: "Merged",
-    tags: ["Go", "Temporal", "io.Writer contract", "Regression test"],
+    prs: [
+      {
+        pr: "#574",
+        prUrl: "https://github.com/zigflow/zigflow/pull/574",
+        title: "fix(http): encode the request body for the declared Content-Type",
+        body:
+          "call: http sent every body as JSON, whatever Content-Type the workflow declared — so an OAuth2 token request marked application/x-www-form-urlencoded arrived as JSON and the endpoint reported its parameters missing. Headers now resolve before the request is built: form bodies render through url.Values, string bodies under non-JSON types go verbatim, and JSON stays byte-for-byte unchanged. The two behaviour changes were stated for the maintainer rather than buried.",
+        status: "Merged",
+        tags: ["Go", "HTTP", "Content-Type", "Backward compatibility"],
+      },
+      {
+        pr: "#568",
+        prUrl: "https://github.com/zigflow/zigflow/pull/568",
+        title: "fix(utils): honour io.Writer contract in LogWriter.Write",
+        body:
+          "An intermittent “short write” that killed script execution. A blank chunk returned n=0 with a nil error, and io.MultiWriter correctly treated that as a short write — so one stray newline aborted the whole command. Root-caused from a production symptom, reproduced with a regression test, fixed in one line.",
+        status: "Merged",
+        tags: ["Go", "Temporal", "io.Writer contract", "Regression test"],
+      },
+    ],
     note: "Listed in the project's AUTHORS file. More on the way — I'm upstreaming a set of engine fixes one at a time.",
   },
 ];
