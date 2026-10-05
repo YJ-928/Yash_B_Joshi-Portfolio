@@ -1,6 +1,5 @@
 ---
 import { Image } from "astro:assets";
-import Chip from "./Chip.astro";
 import zigflowLogo from "../assets/zigflow-logo.png";
 import { openSource } from "../data/site.js";
 ---
@@ -23,15 +22,16 @@ import { openSource } from "../data/site.js";
           <span class="status">✓ {o.prs.filter((p) => p.status === "Merged").length} merged</span>
         </div>
 
-        {o.prs.map((p) => (
-          <div class="pr-item">
-            <a class="pr mono" href={p.prUrl} target="_blank" rel="noopener">
-              {p.pr} — {p.title}
-            </a>
-            <p class="body">{p.body}</p>
-            <ul class="chips" style="margin-bottom:1.1rem">{p.tags.map((t) => <Chip label={t} />)}</ul>
-          </div>
-        ))}
+        <ul class="prs" aria-label="Merged pull requests">
+          {o.prs.map((p) => (
+            <li>
+              <a class="pr" href={p.prUrl} target="_blank" rel="noopener" title={p.title}>
+                <span class="num mono">{p.pr}</span>
+                <span class="ttl">{p.title.replace(/^\w+(\([^)]*\))?:\s*(.)/, (_, _s, c) => c.toUpperCase())}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
         <p class="note">{o.note}</p>
       </article>
     ))}
@@ -66,13 +66,19 @@ import { openSource } from "../data/site.js";
     background: color-mix(in oklab, #21d4c4 11%, transparent);
     padding: 4px 12px; border-radius: 999px;
   }
-  .pr {
-    display: block; margin: 1.4rem 0 .9rem;
-    font-size: .84rem; color: var(--accent-2); text-decoration: none;
-    word-break: break-word;
+  .prs {
+    list-style: none; margin: 1.3rem 0 0; padding: 0;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr)); gap: 6px 18px;
   }
-  .pr:hover { text-decoration: underline; }
+  .pr {
+    display: flex; align-items: baseline; gap: 10px; min-width: 0;
+    padding: 6px 10px; border-radius: 8px; text-decoration: none;
+    border: 1px solid transparent; transition: border-color .2s ease, background .2s ease;
+  }
+  .pr:hover, .pr:focus-visible { border-color: var(--line-soft); background: color-mix(in oklab, var(--accent-2) 7%, transparent); }
+  .num { flex-shrink: 0; font-size: .84rem; color: var(--accent-2); }
+  .ttl { min-width: 0; font-size: .875rem; color: var(--text-dim); }
+  .pr:hover .ttl { color: var(--text); }
   .body { font-size: .95rem; margin-bottom: .9rem; }
-  .pr-item + .pr-item { border-top: 1px solid var(--line-soft); }
-  .note { font-size: .875rem; color: var(--text-dim); margin: 0; padding-top: .9rem; border-top: 1px solid var(--line-soft); }
+  .note { font-size: .875rem; color: var(--text-dim); margin: 1.2rem 0 0; padding-top: .9rem; border-top: 1px solid var(--line-soft); }
 </style>
