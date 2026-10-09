@@ -105,7 +105,7 @@ export const openSource = [
       { pr: "#574", title: "fix(http): encode the request body for the declared Content-Type", status: "Merged" },
       { pr: "#568", title: "fix(utils): honour io.Writer contract in LogWriter.Write", status: "Merged" },
     ].map((p) => ({ ...p, prUrl: `https://github.com/zigflow/zigflow/pull/${p.pr.slice(1)}` })),
-    note: "Listed in the project's AUTHORS file. More on the way.",
+    note: "Maintainer since October 2026, listed in the project's AUTHORS file. Working towards v1.",
   },
 ];
 
