@@ -97,6 +97,7 @@ export const openSource = [
     about: "Durable workflows in YAML, powered by Temporal",
     // Newest first. Numbers only on the card; `title` shows on hover.
     prs: [
+      { pr: "#615", title: "fix: resolve activity inputs in the workflow before scheduling", status: "Merged" },
       { pr: "#609", title: "fix(run): pass run.workflow.input to the child workflow", status: "Merged" },
       { pr: "#592", title: "feat(validate): warn about nested do tasks mixed with executable tasks", status: "Merged" },
       { pr: "#591", title: "fix(fork): wait for branches to be cancelled before the fork returns", status: "Merged" },
