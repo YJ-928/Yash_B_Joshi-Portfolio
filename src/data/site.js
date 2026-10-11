@@ -94,18 +94,32 @@ export const openSource = [
   {
     repo: "zigflow/zigflow",
     repoUrl: "https://github.com/zigflow/zigflow",
-    about: "Durable workflows in YAML, powered by Temporal",
-    // Newest first. Numbers only on the card; `title` shows on hover.
-    prs: [
-      { pr: "#615", title: "fix: resolve activity inputs in the workflow before scheduling", status: "Merged" },
-      { pr: "#609", title: "fix(run): pass run.workflow.input to the child workflow", status: "Merged" },
-      { pr: "#592", title: "feat(validate): warn about nested do tasks mixed with executable tasks", status: "Merged" },
-      { pr: "#591", title: "fix(fork): wait for branches to be cancelled before the fork returns", status: "Merged" },
-      { pr: "#586", title: "fix(listen): report a listen timeout as the Zigflow timeout error", status: "Merged" },
-      { pr: "#574", title: "fix(http): encode the request body for the declared Content-Type", status: "Merged" },
-      { pr: "#568", title: "fix(utils): honour io.Writer contract in LogWriter.Write", status: "Merged" },
-    ].map((p) => ({ ...p, prUrl: `https://github.com/zigflow/zigflow/pull/${p.pr.slice(1)}` })),
-    note: "Maintainer since October 2026, listed in the project's AUTHORS file. Working towards v1.",
+    about: "Declarative YAML workflows on Temporal",
+    role: "Maintainer",
+    summary:
+      "Zigflow compiles YAML (the CNCF Open Workflow Specification) into full Temporal workflows: retries, state and deterministic execution, without SDK code. Maintainer since October 2026: PR reviews, CI and dependency health, and the road to v1.",
+    // Build-time search for the live merged-PR count; the pill is hidden if it fails.
+    mergedQuery: "repo:zigflow/zigflow is:pr is:merged author:YJ-928",
+    mergedUrl: "https://github.com/zigflow/zigflow/pulls?q=is%3Apr+is%3Amerged+author%3AYJ-928",
+    contributionsUrl: "https://github.com/YJ-928/YJ-928/blob/main/CONTRIBUTIONS.md",
+    authorsUrl: "https://github.com/zigflow/zigflow/blob/main/AUTHORS",
+    highlights: [
+      {
+        pr: "#615",
+        title: "Inputs resolved in the workflow",
+        impact: "History records the exact values each step received, so a run can be debugged from its history alone.",
+      },
+      {
+        pr: "#623",
+        title: "Unblocked the project's CI",
+        impact: "A CVE had failed every build and image publish for two days; the fix brought them back to green.",
+      },
+      {
+        pr: "#591",
+        title: "Cancel actually stops a run",
+        impact: "A fork waits for its branches to be cancelled instead of leaving them running.",
+      },
+    ].map((h) => ({ ...h, prUrl: `https://github.com/zigflow/zigflow/pull/${h.pr.slice(1)}` })),
   },
 ];
 
