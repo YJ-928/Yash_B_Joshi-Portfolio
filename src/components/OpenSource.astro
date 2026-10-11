@@ -2,37 +2,64 @@
 import { Image } from "astro:assets";
 import zigflowLogo from "../assets/zigflow-logo.png";
 import { openSource } from "../data/site.js";
+
+async function mergedCount(query) {
+  try {
+    const res = await fetch(`https://api.github.com/search/issues?q=${encodeURIComponent(query)}&per_page=1`, {
+      headers: { Accept: "application/vnd.github+json" },
+      signal: AbortSignal.timeout(5000),
+    });
+    if (!res.ok) return null;
+    const { total_count } = await res.json();
+    return Number.isInteger(total_count) ? total_count : null;
+  } catch {
+    return null;
+  }
+}
+
+const projects = await Promise.all(openSource.map(async (o) => ({ ...o, merged: await mergedCount(o.mergedQuery) })));
 ---
 <section id="open-source" class="section os-wrap">
   <div class="wrap">
     <p class="eyebrow" data-reveal>Open source</p>
-    <h2 data-reveal>Fixing the tools I depend on</h2>
+    <h2 data-reveal>Maintaining the tools I depend on</h2>
 
-    {openSource.map((o) => (
+    {projects.map((o) => (
       <article class="card os" data-reveal data-spot>
         <div class="head">
           <a class="ident" href={o.repoUrl} target="_blank" rel="noopener">
-            <!-- Zigflow's own mark, used to identify the project I contributed to -->
             <Image class="logo" src={zigflowLogo} alt="" width={44} height={36} loading="lazy" />
             <span>
               <span class="repo">{o.repo} ↗</span>
               <span class="about">{o.about}</span>
             </span>
           </a>
-          <span class="status">✓ {o.prs.filter((p) => p.status === "Merged").length} merged</span>
+          <span class="tags">
+            <span class="role">{o.role}</span>
+            {o.merged !== null && (
+              <a class="status" href={o.mergedUrl} target="_blank" rel="noopener">✓ {o.merged} merged PRs ↗</a>
+            )}
+          </span>
         </div>
 
-        <ul class="prs" aria-label="Merged pull requests">
-          {o.prs.map((p) => (
+        <p class="summary">{o.summary}</p>
+
+        <ul class="highlights" aria-label="Highlights">
+          {o.highlights.map((h) => (
             <li>
-              <a class="pr" href={p.prUrl} target="_blank" rel="noopener" title={p.title}>
-                <span class="num mono">{p.pr}</span>
-                <span class="ttl">{p.title.replace(/^\w+(\([^)]*\))?:\s*(.)/, (_, _s, c) => c.toUpperCase())}</span>
+              <a class="hl" href={h.prUrl} target="_blank" rel="noopener">
+                <span class="num mono">{h.pr}</span>
+                <span class="hl-title">{h.title}</span>
+                <span class="impact">{h.impact}</span>
               </a>
             </li>
           ))}
         </ul>
-        <p class="note">{o.note}</p>
+
+        <p class="note">
+          <a href={o.contributionsUrl} target="_blank" rel="noopener">All contributions ↗</a>
+          <span>Listed in Zigflow's <a href={o.authorsUrl} target="_blank" rel="noopener">AUTHORS</a> file</span>
+        </p>
       </article>
     ))}
   </div>
@@ -58,27 +85,46 @@ import { openSource } from "../data/site.js";
   .ident:hover .repo { color: var(--accent-2); }
   .about { display: block; color: var(--text-dim); font-size: .875rem; }
 
-  .status {
+  .tags { display: flex; gap: 8px; flex-wrap: wrap; }
+  .role, .status {
     flex-shrink: 0;
     font-size: .76rem; font-weight: 600; letter-spacing: .04em;
+    padding: 4px 12px; border-radius: 999px; text-decoration: none;
+  }
+  .role {
+    color: var(--accent-2);
+    border: 1px solid color-mix(in oklab, var(--accent-2) 34%, transparent);
+    background: color-mix(in oklab, var(--accent-2) 11%, transparent);
+  }
+  .status {
     color: #7ee7c7;
     border: 1px solid color-mix(in oklab, #21d4c4 34%, transparent);
     background: color-mix(in oklab, #21d4c4 11%, transparent);
-    padding: 4px 12px; border-radius: 999px;
+    transition: background .2s ease;
   }
-  .prs {
-    list-style: none; margin: 1.3rem 0 0; padding: 0;
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr)); gap: 6px 18px;
+  .status:hover, .status:focus-visible { background: color-mix(in oklab, #21d4c4 20%, transparent); }
+
+  .summary { font-size: .95rem; color: var(--text-dim); margin: 1.3rem 0 0; max-width: 72ch; }
+
+  .highlights {
+    list-style: none; margin: 1.4rem 0 0; padding: 0;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 12px;
   }
-  .pr {
-    display: flex; align-items: baseline; gap: 10px; min-width: 0;
-    padding: 6px 10px; border-radius: 8px; text-decoration: none;
-    border: 1px solid transparent; transition: border-color .2s ease, background .2s ease;
+  .hl {
+    display: flex; flex-direction: column; gap: 6px; height: 100%;
+    padding: 14px 16px; border-radius: 10px; text-decoration: none;
+    border: 1px solid var(--line-soft); transition: border-color .2s ease, background .2s ease;
   }
-  .pr:hover, .pr:focus-visible { border-color: var(--line-soft); background: color-mix(in oklab, var(--accent-2) 7%, transparent); }
-  .num { flex-shrink: 0; font-size: .84rem; color: var(--accent-2); }
-  .ttl { min-width: 0; font-size: .875rem; color: var(--text-dim); }
-  .pr:hover .ttl { color: var(--text); }
-  .body { font-size: .95rem; margin-bottom: .9rem; }
-  .note { font-size: .875rem; color: var(--text-dim); margin: 1.2rem 0 0; padding-top: .9rem; border-top: 1px solid var(--line-soft); }
+  .hl:hover, .hl:focus-visible { border-color: color-mix(in oklab, var(--accent-2) 45%, transparent); background: color-mix(in oklab, var(--accent-2) 7%, transparent); }
+  .num { font-size: .84rem; color: var(--accent-2); }
+  .hl-title { font-weight: 600; font-size: .95rem; color: var(--text); }
+  .impact { font-size: .85rem; color: var(--text-dim); }
+
+  .note {
+    display: flex; justify-content: space-between; gap: .6rem 1.2rem; flex-wrap: wrap;
+    font-size: .875rem; color: var(--text-dim);
+    margin: 1.4rem 0 0; padding-top: .9rem; border-top: 1px solid var(--line-soft);
+  }
+  .note a { color: var(--accent-2); text-decoration: none; }
+  .note a:hover, .note a:focus-visible { text-decoration: underline; }
 </style>
